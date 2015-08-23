@@ -40,9 +40,20 @@ def pdf_name_extract(file):
 def rename_recursively(files):
     for file in files:
         name = pdf_name_extract(file)
-        file2 = file.replace(file, path+'/new')
-        system('cp file file2')
-        print file, ' ...\n'
+        file2 = file.replace(path, path+'/new')
+        file2 = file2.replace(' ', '\ ')
+        # print file2
+        dir = ''
+        for s in file2.split('/')[:-1]:
+            dir += s+'/'
+        # print dir
+
+        try:
+            system('mkdir '+dir)
+        except:
+            pass
+        system('cp '+file+' '+file2)
+        # print file, ' ...\n'
 
 
 # print(get_all_files_recursively(path))
@@ -50,6 +61,6 @@ def rename_recursively(files):
 # files = os.listdir(path)
 
 if __name__ == '__main__':
-    path = '/media/mehdi/New Volume1/Learning/Uni/Master/Thesis/ICN (copy)'
+    path = '/media/mehdi/New Volume1/Learning/Uni/Master/Thesis/ICN2'
     files = get_all_files_recursively(path)
     rename_recursively(files)
